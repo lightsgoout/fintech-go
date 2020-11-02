@@ -29,4 +29,6 @@ type PaymentValue struct {
 	Amount money.Numeric
 
 	Currency money.Currency
+
+	Outgoing bool
 }

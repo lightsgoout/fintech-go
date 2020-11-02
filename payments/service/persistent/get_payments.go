@@ -36,9 +36,25 @@ func (s PaymentsService) accountExists(ctx context.Context, accountId entity.Acc
 func (s PaymentsService) getPayments(ctx context.Context, accountId entity.AccountID) ([]entity.Payment, error) {
 	const sql = `--payments_get
 		SELECT * FROM (
-			SELECT id, time, from_account_id, to_account_id, amount::text as amount, currency FROM payment WHERE from_account_id = ?
+			SELECT 
+				id, 
+				time, 
+				from_account_id, 
+				to_account_id, 
+				amount::text as amount, 
+				currency,
+				true as outgoing
+			FROM payment WHERE from_account_id = ?
 			UNION
-			SELECT id, time, from_account_id, to_account_id, amount::text as amount, currency FROM payment WHERE to_account_id = ?
+			SELECT 
+				id, 
+				time, 
+				from_account_id, 
+				to_account_id, 
+				amount::text as amount, 
+				currency,
+				false as outgoing
+			FROM payment WHERE to_account_id = ?
 		) x ORDER BY time DESC`
 
 	var rows []struct {
@@ -48,6 +64,7 @@ func (s PaymentsService) getPayments(ctx context.Context, accountId entity.Accou
 		To       string    `pg:"to_account_id"`
 		Amount   string    `sql:"amount"`
 		Currency string    `sql:"currency"`
+		Outgoing bool      `sql:"outgoing"`
 	}
 	_, err := s.pg.QueryContext(ctx, &rows, sql, accountId, accountId)
 	if err != nil {
@@ -63,6 +80,7 @@ func (s PaymentsService) getPayments(ctx context.Context, accountId entity.Accou
 				To:       entity.AccountID(r.To),
 				Amount:   money.NewNumericFromStringMust(r.Amount),
 				Currency: money.Currency(r.Currency),
+				Outgoing: r.Outgoing,
 			},
 		})
 	}

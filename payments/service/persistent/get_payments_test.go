@@ -71,10 +71,12 @@ func TestPaymentsService_GetPayments(t *testing.T) {
 		assert.Equal(t, bobPayments[0].Value.To, bob)
 		assert.Equal(t, bobPayments[0].Value.Amount, money.NewNumericFromInt64(35))
 		assert.Equal(t, bobPayments[0].Value.Currency, money.Currency("USD"))
+		assert.Equal(t, bobPayments[0].Value.Outgoing, false)
 		assert.Equal(t, bobPayments[1].Value.From, bob)
 		assert.Equal(t, bobPayments[1].Value.To, alice)
 		assert.Equal(t, bobPayments[1].Value.Amount, money.NewNumericFromInt64(50))
 		assert.Equal(t, bobPayments[1].Value.Currency, money.Currency("USD"))
+		assert.Equal(t, bobPayments[1].Value.Outgoing, true)
 
 		// Check alice's payments
 		alicePayments, err := svc.GetPayments(env.Ctx, alice)
@@ -84,13 +86,15 @@ func TestPaymentsService_GetPayments(t *testing.T) {
 		if len(alicePayments) != 2 {
 			t.Error("incorrect alice payments count")
 		}
-		assert.Equal(t, bobPayments[0].Value.From, alice)
-		assert.Equal(t, bobPayments[0].Value.To, bob)
-		assert.Equal(t, bobPayments[0].Value.Amount, money.NewNumericFromInt64(35))
-		assert.Equal(t, bobPayments[0].Value.Currency, money.Currency("USD"))
-		assert.Equal(t, bobPayments[1].Value.From, bob)
-		assert.Equal(t, bobPayments[1].Value.To, alice)
-		assert.Equal(t, bobPayments[1].Value.Amount, money.NewNumericFromInt64(50))
-		assert.Equal(t, bobPayments[1].Value.Currency, money.Currency("USD"))
+		assert.Equal(t, alicePayments[0].Value.From, alice)
+		assert.Equal(t, alicePayments[0].Value.To, bob)
+		assert.Equal(t, alicePayments[0].Value.Amount, money.NewNumericFromInt64(35))
+		assert.Equal(t, alicePayments[0].Value.Currency, money.Currency("USD"))
+		assert.Equal(t, alicePayments[0].Value.Outgoing, true)
+		assert.Equal(t, alicePayments[1].Value.From, bob)
+		assert.Equal(t, alicePayments[1].Value.To, alice)
+		assert.Equal(t, alicePayments[1].Value.Amount, money.NewNumericFromInt64(50))
+		assert.Equal(t, alicePayments[1].Value.Currency, money.Currency("USD"))
+		assert.Equal(t, alicePayments[1].Value.Outgoing, false)
 	}))
 }
