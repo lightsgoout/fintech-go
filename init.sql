@@ -26,4 +26,4 @@ create table payment
 
 create index on payment using btree (from_account_id, time desc);
 create index on payment using btree (to_account_id, time desc);
-create index on account using hash(currency);
+create index on account using hash (currency);

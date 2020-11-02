@@ -32,6 +32,12 @@ func NewNumericFromInt64(value int64) Numeric {
 	}
 }
 
+func NewNumericFromFloat32(value float32) Numeric {
+	return Numeric{
+		value: decimal.NewFromFloat32(value),
+	}
+}
+
 func NewNumericFromStringMust(value string) Numeric {
 	return Numeric{
 		value: decimal.RequireFromString(value),

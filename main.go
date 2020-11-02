@@ -18,7 +18,11 @@ func main() {
 
 	pg := postgres.NewPostgresFromEnv()
 	svc := persistent.NewPaymentsService(pg)
-	srv := api.NewServer(svc, *listen)
+
+	srv := http.Server{
+		Addr:    *listen,
+		Handler: api.NewAPIServer(svc),
+	}
 	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
 		log.Print(fmt.Errorf("failed to listen and serve: %w", err))
 	}

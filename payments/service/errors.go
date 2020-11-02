@@ -5,6 +5,7 @@ import "errors"
 var (
 	ErrAccountDoesNotExist  = errors.New("account does not exist")
 	ErrIncompatibleCurrency = errors.New("incompatible currency")
+	ErrBadAccountID         = errors.New("bad account id")
 	ErrInsufficientFunds    = errors.New("insufficient funds")
 	ErrAccountAlreadyExists = errors.New("account already exists")
 )

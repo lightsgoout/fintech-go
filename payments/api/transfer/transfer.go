@@ -15,8 +15,8 @@ import (
 type transferRequest struct {
 	From     entity.AccountID `json:"from"`
 	To       entity.AccountID `json:"to"`
-	Amount   money.Numeric    `json:"amount"`
-	Currency money.Currency   `json:"currency"`
+	Amount   float32          `json:"amount"`
+	Currency string           `json:"currency"`
 }
 
 type transferResponse struct {
@@ -27,7 +27,13 @@ type transferResponse struct {
 func transferEndpoint(svc service.PaymentsService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req := request.(transferRequest)
-		paymentId, err := svc.Transfer(ctx, req.From, req.To, req.Amount, req.Currency)
+		paymentId, err := svc.Transfer(
+			ctx,
+			req.From,
+			req.To,
+			money.NewNumericFromFloat32(req.Amount),
+			money.NewCurrency(req.Currency),
+		)
 		if err != nil {
 			return transferResponse{0, err.Error()}, nil
 		}

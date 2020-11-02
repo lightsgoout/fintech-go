@@ -1,4 +1,4 @@
-package create_account
+package get_accounts
 
 import (
 	"context"
@@ -12,34 +12,31 @@ import (
 	"net/http"
 )
 
-type createAccountRequest struct {
-	Id       entity.AccountID `json:"id"`
-	Balance  float32          `json:"balance"`
-	Currency string           `json:"currency"`
+type getAccountsRequest struct {
+	Currency string `json:"currency"`
 }
 
-type createAccountResponse struct {
-	Err string `json:"err,omitempty"`
+type getAccountsResponse struct {
+	Accounts []entity.AccountID `json:"accounts,omitempty"`
+	Err      string             `json:"err,omitempty"`
 }
 
-func createAccountEndpoint(svc service.PaymentsService) endpoint.Endpoint {
+func getAccountsEndpoint(svc service.PaymentsService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req := request.(createAccountRequest)
-		err := svc.CreateAccount(
+		req := request.(getAccountsRequest)
+		accs, err := svc.GetAccounts(
 			ctx,
-			req.Id,
-			money.NewNumericFromFloat32(req.Balance),
 			money.NewCurrency(req.Currency),
 		)
 		if err != nil {
-			return createAccountResponse{err.Error()}, nil
+			return getAccountsResponse{nil, err.Error()}, nil
 		}
-		return createAccountResponse{""}, nil
+		return getAccountsResponse{accs, ""}, nil
 	}
 }
 
-func decodeCreateAccountRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	var request createAccountRequest
+func decodeGetAccountsRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	var request getAccountsRequest
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return nil, err
 	}
@@ -48,8 +45,8 @@ func decodeCreateAccountRequest(_ context.Context, r *http.Request) (interface{}
 
 func Server(svc service.PaymentsService) *httptransport.Server {
 	return httptransport.NewServer(
-		createAccountEndpoint(svc),
-		decodeCreateAccountRequest,
+		getAccountsEndpoint(svc),
+		decodeGetAccountsRequest,
 		common.EncodeResponse,
 	)
 }

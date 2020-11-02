@@ -9,7 +9,9 @@ import (
 )
 
 func (s PaymentsService) GetPayments(ctx context.Context, accountId entity.AccountID) ([]entity.Payment, error) {
-	// Check account exists
+	if accountId == "" {
+		return nil, service.ErrBadAccountID
+	}
 	exists, err := s.accountExists(ctx, accountId)
 	if err != nil {
 		return nil, NewInternalErrorFromDBError(err)

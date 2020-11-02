@@ -55,4 +55,11 @@ func TestPaymentsService_CreateAccount(t *testing.T) {
 			t.Fail()
 		}
 	}))
+
+	t.Run("bad account id", isolation.WrapInTransaction(env.Tx, func(t *testing.T) {
+		err := svc.CreateAccount(env.Ctx, "", money.NewNumericFromInt64(60), "EUR")
+		if !errors.Is(err, service.ErrBadAccountID) {
+			t.Errorf("expected ErrBadAccountID, got err=%v", err)
+		}
+	}))
 }

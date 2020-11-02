@@ -16,6 +16,8 @@ API will be available at `http://localhost:8080/`
 
 Will run test suite against throwaway dockerized Postgres.
 
+Current coverage is `84.3%`
+
 #### Loadtest
 
 `docker-compose up fintech_loadtest`

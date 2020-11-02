@@ -17,6 +17,10 @@ func (s PaymentsService) CreateAccount(ctx context.Context, id entity.AccountID,
 		return service.ErrIncompatibleCurrency
 	}
 
+	if id == "" {
+		return service.ErrBadAccountID
+	}
+
 	const sql = `INSERT INTO account (id, currency, balance) VALUES (?id, ?currency, ?balance)`
 	_, err := s.pg.ExecContext(ctx, sql, struct {
 		Id       string `sql:"id"`
