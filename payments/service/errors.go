@@ -8,6 +8,7 @@ var (
 	ErrBadAccountID         = errors.New("bad account id")
 	ErrInsufficientFunds    = errors.New("insufficient funds")
 	ErrAccountAlreadyExists = errors.New("account already exists")
+	ErrBadTransferTarget    = errors.New("bad transfer target")
 )
 
 type ErrInternal struct {

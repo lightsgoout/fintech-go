@@ -11,6 +11,10 @@ import (
 )
 
 func (s PaymentsService) Transfer(ctx context.Context, from, to entity.AccountID, amount money.Numeric, cur money.Currency) (entity.PaymentID, error) {
+	if from == to {
+		return 0, service.ErrBadTransferTarget
+	}
+
 	// Freeze time so it would be consistent across all possible operations
 	ts := time.Now().UTC()
 

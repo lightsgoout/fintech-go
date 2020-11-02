@@ -75,4 +75,10 @@ func TestPaymentsService_Transfer(t *testing.T) {
 		}
 	}))
 
+	t.Run("disallow transfer to the same account", isolation.WrapInTransaction(env.Tx, func(t *testing.T) {
+		paymentId, err := svc.Transfer(env.Ctx, bob, bob, money.NewNumericFromInt64(20), "USD")
+		if !errors.Is(err, service.ErrBadTransferTarget) {
+			t.Errorf("expected ErrBadTransferTarget, got paymentId=%v, err=%v", paymentId, err)
+		}
+	}))
 }

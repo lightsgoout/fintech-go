@@ -1,0 +1,35 @@
+POST http://fintech:8080/account/create
+Content-Type: application/json
+@payload/create_account1.json
+
+POST http://fintech:8080/account/create
+Content-Type: application/json
+@payload/create_account2.json
+
+POST http://fintech:8080/account/create
+Content-Type: application/json
+@payload/create_account3.json
+
+POST http://fintech:8080/transfer
+Content-Type: application/json
+@payload/transfer1.json
+
+POST http://fintech:8080/transfer
+Content-Type: application/json
+@payload/transfer2.json
+
+POST http://fintech:8080/transfer
+Content-Type: application/json
+@payload/transfer3.json
+
+POST http://fintech:8080/transfer
+Content-Type: application/json
+@payload/transfer4.json
+
+POST http://fintech:8080/transfer
+Content-Type: application/json
+@payload/transfer5.json
+
+POST http://fintech:8080/transfer
+Content-Type: application/json
+@payload/transfer6.json

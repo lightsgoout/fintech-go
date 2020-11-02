@@ -1,0 +1,453 @@
+
+### Create account
+
+```
+curl --header "Content-Type: application/json" --request POST http://localhost:8080/account/create --data '{"id":"bob","currency":"USD", "balance": 100}'
+```
+
+Output:
+```
+{}
+```
+
+### Transfer funds
+
+```
+curl --header "Content-Type: application/json" --request POST http://localhost:8080/transfer --data '{"from":"bob", "to":"alice", "currency":"USD", "amount": 10}'
+```
+
+Output:
+```
+{"payment_id":67}
+```
+
+### Get accounts
+
+```
+curl --header "Content-Type: application/json" --request POST http://localhost:8080/account/list --data '{"currency":"USD"}'
+```
+
+Output:
+```
+{"accounts":["alice","bob","clyde"]}
+```
+
+### Get Payments
+
+```
+curl --header "Content-Type: application/json" --request POST http://localhost:8080/payment/list --data '{"account_id":"bob"}'
+```
+
+Output:
+
+```
+{
+   "payments":[
+      {
+         "id":67,
+         "time":"2020-11-02T10:22:00.134332Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":65,
+         "time":"2020-11-02T10:18:23.648556Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":63,
+         "time":"2020-11-02T10:18:23.451076Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":62,
+         "time":"2020-11-02T10:18:23.348361Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":61,
+         "time":"2020-11-02T10:18:23.251115Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":59,
+         "time":"2020-11-02T10:18:22.748483Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":57,
+         "time":"2020-11-02T10:18:22.549598Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":56,
+         "time":"2020-11-02T10:18:22.448481Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":55,
+         "time":"2020-11-02T10:18:22.348404Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":53,
+         "time":"2020-11-02T10:18:21.850025Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":51,
+         "time":"2020-11-02T10:18:21.64873Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":50,
+         "time":"2020-11-02T10:18:21.548908Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":49,
+         "time":"2020-11-02T10:18:21.450783Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":47,
+         "time":"2020-11-02T10:18:20.948907Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":45,
+         "time":"2020-11-02T10:18:20.748526Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":44,
+         "time":"2020-11-02T10:18:20.650048Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":43,
+         "time":"2020-11-02T10:18:20.548858Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":41,
+         "time":"2020-11-02T10:18:20.049008Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":39,
+         "time":"2020-11-02T10:18:19.849331Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":38,
+         "time":"2020-11-02T10:18:19.74968Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":37,
+         "time":"2020-11-02T10:18:19.648363Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":35,
+         "time":"2020-11-02T10:18:19.148239Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":33,
+         "time":"2020-11-02T10:18:18.94944Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":32,
+         "time":"2020-11-02T10:18:18.849348Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":31,
+         "time":"2020-11-02T10:18:18.749723Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":29,
+         "time":"2020-11-02T10:18:18.248936Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":27,
+         "time":"2020-11-02T10:18:18.048904Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":26,
+         "time":"2020-11-02T10:18:17.948285Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":25,
+         "time":"2020-11-02T10:18:17.849643Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":23,
+         "time":"2020-11-02T10:18:17.348379Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":21,
+         "time":"2020-11-02T10:18:17.149668Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":20,
+         "time":"2020-11-02T10:18:17.048115Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":19,
+         "time":"2020-11-02T10:18:16.948398Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":17,
+         "time":"2020-11-02T10:18:16.451382Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":15,
+         "time":"2020-11-02T10:18:16.250086Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":14,
+         "time":"2020-11-02T10:18:16.149008Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":13,
+         "time":"2020-11-02T10:18:16.048992Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":11,
+         "time":"2020-11-02T10:18:15.549496Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":9,
+         "time":"2020-11-02T10:18:15.348578Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":8,
+         "time":"2020-11-02T10:18:15.25024Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":7,
+         "time":"2020-11-02T10:18:15.148861Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":5,
+         "time":"2020-11-02T10:18:14.648555Z",
+         "from":"clyde",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":3,
+         "time":"2020-11-02T10:18:14.448378Z",
+         "from":"alice",
+         "to":"bob",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":false
+      },
+      {
+         "id":2,
+         "time":"2020-11-02T10:18:14.349413Z",
+         "from":"bob",
+         "to":"clyde",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      },
+      {
+         "id":1,
+         "time":"2020-11-02T10:18:14.249221Z",
+         "from":"bob",
+         "to":"alice",
+         "amount":"10",
+         "currency":"USD",
+         "outgoing":true
+      }
+   ]
+}
+```

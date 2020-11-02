@@ -37,3 +37,14 @@ services:
       go test -v -coverpkg=./... -coverprofile=coverage.out /fintech-go/...
       && go tool cover -func=coverage.out
       "
+
+  fintech_loadtest:
+    build:
+      context: .
+      dockerfile: Dockerfile.loadtest
+    depends_on:
+      - fintech
+    command: sh -c "
+      vegeta attack -rate=10 -duration=10s -targets=/loadtest/targets.txt > results.bin
+      &&  cat results.bin | vegeta report -type=text
+      "

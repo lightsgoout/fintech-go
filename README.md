@@ -16,11 +16,11 @@ API will be available at `http://localhost:8080/`
 
 Will run test suite against throwaway dockerized Postgres.
 
-Current coverage is `84.3%`
+Current coverage is `84.5%`
 
 #### Loadtest
 
-`docker-compose up fintech_loadtest`
+`docker-compose up --force-recreate fintech_loadtest`
 
 This will shoot various random requests to the API.
 
