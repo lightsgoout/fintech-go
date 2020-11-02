@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  db:
+    restart: always
+    env_file:
+      - docker-compose.env
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+
+  db_test:
+    restart: always
+    env_file:
+      - docker-compose.test.env
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+
+  fintech:
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - docker-compose.env
+    ports:
+      - "8080:8080"
+    command: /go/bin/fintech-go -listen :8080
+
+  fintech_test:
+    build: .
+    depends_on:
+      - db_test
+    env_file:
+      - docker-compose.test.env
+    command: bash -c "
+      go test -v -coverpkg=./... -coverprofile=coverage.out /fintech-go/...
+      && go tool cover -func=coverage.out
+      "

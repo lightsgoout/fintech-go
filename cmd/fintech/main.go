@@ -1,5 +1,0 @@
-package fintech
-
-func main() {
-
-}

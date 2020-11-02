@@ -9,7 +9,7 @@ type PaymentID int64
 
 // Payment describes a transfer of money between one Account and another
 type Payment struct {
-	// id is a unique ID of this payment
+	// Id is a unique ID of this payment
 	Id PaymentID
 
 	Value PaymentValue

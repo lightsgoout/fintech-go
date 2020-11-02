@@ -31,3 +31,9 @@ func NewNumericFromInt64(value int64) Numeric {
 		value: decimal.NewFromInt(value),
 	}
 }
+
+func NewNumericFromStringMust(value string) Numeric {
+	return Numeric{
+		value: decimal.RequireFromString(value),
+	}
+}
